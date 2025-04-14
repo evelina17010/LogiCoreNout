@@ -39,11 +39,11 @@ namespace LogiCore.Add
         {
             InitializeComponent();
             InitializeWindow(orderToEdit);
-            isEditMode = true;
+              isEditMode = true;
         }
 
         private void InitializeWindow(Order order)
-        {
+        { 
             Managers = DB.log.User.Where(u => u.Role_id == 4).ToList();
             Cargos = DB.log.Cargo.ToList();
             Tariffs = DB.log.Tariff.ToList();
@@ -52,7 +52,7 @@ namespace LogiCore.Add
             DataContext = this;
             if (order != null)
             {
-                Order = order;
+                 Order = order;
                 Managercb.SelectedItem = Managers.FirstOrDefault(m => m.User_id == order.Manager_id);
                 Cargocb.SelectedItem = Cargos.FirstOrDefault(c => c.Cargo_id == order.Cargo_id);
                 Tariffcb.SelectedItem = Tariffs.FirstOrDefault(t => t.Tariff_id == order.Tariff_id);

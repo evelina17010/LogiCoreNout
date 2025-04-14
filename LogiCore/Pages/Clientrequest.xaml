@@ -29,7 +29,7 @@
                     <TextBox x:Name="txbTo" Style="{StaticResource ClnStr}" Grid.Row="2" />
                     <TextBlock Text="Масса(кг)"  Style="{StaticResource ClientStr}" Panel.ZIndex="1" Visibility="{Binding ElementName=txbweight,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}" Grid.Row="3" />
                     <TextBox x:Name="txbweight" Style="{StaticResource ClnStr}" Grid.Row="3" />
-                    <TextBlock Text="Объём"  Style="{StaticResource ClientStr}" Panel.ZIndex="1" Visibility="{Binding ElementName=txbvolume,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}" Grid.Row="4" />
+                    <TextBlock Text="Объём(м3)"  Style="{StaticResource ClientStr}" Panel.ZIndex="1" Visibility="{Binding ElementName=txbvolume,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}" Grid.Row="4" />
                     <TextBox x:Name="txbvolume" Style="{StaticResource ClnStr}" Grid.Row="4" />
                     <TextBlock Text="Описание(Тип груза)"  Style="{StaticResource ClientStr}" Panel.ZIndex="1" Visibility="{Binding ElementName=txbdescription,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}" Grid.Row="0" />
                     <TextBox x:Name="txbdescription" Style="{StaticResource ClnStr}" Grid.Row="0" />
