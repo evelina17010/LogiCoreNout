@@ -1,0 +1,143 @@
+﻿<Page x:Class="LogiCore.Pages.Manager"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LogiCore.Pages"
+      mc:Ignorable="d" 
+d:DesignHeight="1000" d:DesignWidth="1400" MaxHeight="1080" MaxWidth="1920" MinHeight="450" MinWidth="800"
+      Title="Менеджер" Background="WhiteSmoke" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Style="{StaticResource Rolebor}"  Grid.RowSpan="2" Background="#BCFAC4">
+            <StackPanel VerticalAlignment="Center">
+                <Image Source="\Image\people.ico" Height="150" Margin="10"/>
+                <TextBlock x:Name="txbName"  Style="{StaticResource UserName}"/>
+                <Button x:Name="btnexit" Content="Выход" Click="btnexit_Click" Style="{StaticResource clbtn}"/>
+            </StackPanel>
+        </Border>
+        <TabControl Grid.Column="1" Grid.RowSpan="2"  >
+            <TabItem Header="Заказы" FontSize="25" FontWeight="Black">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="35*"/>
+                        <ColumnDefinition Width="129*"/>
+                        <ColumnDefinition Width="274*"/>
+                        <ColumnDefinition Width="706*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5,5,5,5" Grid.ColumnSpan="4">
+                        <Button Content="Создать заказ" Click="CreateOrder_Click" Style="{StaticResource ManagerAction}"/>
+                        <Button Content="Изменить статус" Click="ChangeStatus_Click" Style="{StaticResource ManagerAction}" />
+                        <Button Content="Назначить транспорт" Click="AssignTruck_Click" Style="{StaticResource ManagerAction}" />
+                        <Button Content="Обновить" Click="RefreshOrders_Click" Style="{StaticResource ManagerAction}"/>
+                        <Grid Margin="10 0 0 0">
+                            <TextBlock Text="Поиск заказа по ID"  Style="{StaticResource Add}" 
+                                      Visibility="{Binding ElementName=OrderSearchTb, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}" Height="28" Margin="0,10,0,0" VerticalAlignment="Top"/>
+                            <TextBox Name="OrderSearchTb" Style="{StaticResource Addtxb}" Margin="0,8,0,0" VerticalAlignment="Top" Width="210" TextChanged="OrderSearchTb_TextChanged"/>
+                        </Grid>
+                        <Grid Margin="10 0 0 0">
+                            <TextBlock Text="Сортировка" Style="{StaticResource Add}"  Visibility="{Binding ElementName=StatusFilter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}" Panel.ZIndex="1" Margin="0,6,0,0" VerticalAlignment="Top" Width="200"/>
+                            <ComboBox x:Name="StatusFilter" Style="{StaticResource AddRole}"
+                     SelectionChanged="StatusFilterComboBox_SelectionChanged" Width="200">
+                                <ComboBox.Items>
+                                    <ComboBoxItem Tag="0" Content=" Все статусы"></ComboBoxItem>
+                                    <ComboBoxItem Tag="1"  Content=" Новый"></ComboBoxItem>
+                                    <ComboBoxItem Tag="2"  Content="В обработке"></ComboBoxItem>
+                                    <ComboBoxItem Tag="3" Content="В пути"></ComboBoxItem>
+                                    <ComboBoxItem Tag="4" Content="Доставлен"></ComboBoxItem>
+                                    <ComboBoxItem Tag="5"  Content="Отменен"></ComboBoxItem>
+                                </ComboBox.Items>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                    <ScrollViewer Grid.Row="1" Grid.ColumnSpan="4" 
+                         HorizontalScrollBarVisibility="Auto"
+                         VerticalScrollBarVisibility="Auto">
+                        <DataGrid x:Name="OrdersGrid" Grid.Row="1" ItemsSource="{Binding Orders}" Style="{StaticResource dg}" IsReadOnly="True" HorizontalAlignment="Left"
+                             AutoGenerateColumns="False" SelectionChanged="OrdersGrid_SelectionChanged" SelectionMode="Single" Grid.ColumnSpan="4" Margin="0,0,-6,0" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="№" Binding="{Binding Order_id}"/>
+                                <DataGridTextColumn Header="Клиент" Binding="{Binding User.Full_name}"/>
+                                <DataGridTextColumn Header="Груз" Binding="{Binding Cargo.Description}"/>
+                                <DataGridTextColumn Header="Откуда" Binding="{Binding Route.Start_point}"/>
+                                <DataGridTextColumn Header="Куда" Binding="{Binding  Route.End_point}" />
+                                <DataGridTextColumn Header="Транспорт" Binding="{Binding Truck.Model}"/>
+                                <DataGridTextColumn Header="Статус" Binding="{Binding Status_order}"/>
+                                <DataGridTextColumn Header="Дата" Binding="{Binding Order_date, StringFormat=dd.MM.yyyy}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Транспорт" FontSize="25" FontWeight="Black">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="29*"/>
+                        <ColumnDefinition Width="1115*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5,5,5,5" Grid.ColumnSpan="2">
+                        <Button Content="Добавить" Click="AddTruck_Click" Style="{StaticResource Action}"/>
+                        <Button Content="Редактировать" Click="EditTruck_Click" Style="{StaticResource Action}"/>
+                        <Button Content="Обновить" Click="RefreshTrucks_Click" Style="{StaticResource Action}"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="TrucksGrid" Grid.Row="1" ItemsSource="{Binding Trucks}" Style="{StaticResource dg}" SelectionChanged="TrucksGrid_SelectionChanged" HorizontalAlignment="Left"
+                             AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" Grid.ColumnSpan="2" Margin="0,0,-6,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Модель" Binding="{Binding Model}"/>
+                            <DataGridTextColumn Header="Рег. номер" Binding="{Binding Registration_number}"/>
+                            <DataGridTextColumn Header="Водитель" Binding="{Binding Driver.User.Full_name}"/>
+                            <DataGridTextColumn Header="Грузоподъемность" Binding="{Binding Capacity}"/>
+                            <DataGridCheckBoxColumn Header="Доступен" Binding="{Binding Status_truck}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Водители" FontSize="25" FontWeight="Black">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="29*"/>
+                        <ColumnDefinition Width="1115*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5,5,5,5" Grid.ColumnSpan="2">
+                        <Button Content="Добавить водителя" Click="AddDriver_Click" Style="{StaticResource ManagerAction}" Margin="0,0,10,0" Width="170"/>
+                        <Button Content="Редактировать" Click="EditDriver_Click" Style="{StaticResource  ManagerAction}" Margin="0,0,10,0"  Width="170"/>
+                        <Button Content="Обновить" Click="RefreshDrivers_Click" Style="{StaticResource ManagerAction}" Width="150"/>
+                    </StackPanel>
+                    <DataGrid x:Name="DriverGrid" Grid.Row="1" ItemsSource="{Binding Trucks}" Style="{StaticResource dg}" SelectionChanged="DriverGrid_SelectionChanged" HorizontalAlignment="Left"
+         AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" Grid.ColumnSpan="2" Margin="0,0,-6,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding User_id}" Width="Auto"/>
+                            <DataGridTextColumn Header="ФИО" Binding="{Binding User.Full_name}" Width="*"/>
+                            <DataGridTextColumn Header="Телефон" Binding="{Binding User.Phone}" Width="150"/>
+                            <DataGridTextColumn Header="Категория прав" Binding="{Binding License_number}" Width="150"/>
+                            <DataGridCheckBoxColumn Header="Активен" Binding="{Binding Status_driver}" Width="80"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

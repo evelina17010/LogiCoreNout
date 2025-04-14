@@ -1,0 +1,42 @@
+﻿<Window x:Class="LogiCore.Add.AddRoute"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LogiCore.Add"
+        mc:Ignorable="d"
+        Title="Добавление Маршрута" Height="450" Width="800">
+    <Border Style="{StaticResource WindowBackground}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <TextBlock Text="Точка отправления"  Style="{StaticResource Add}" Panel.ZIndex="1" Visibility="{Binding ElementName=txtStartPoint,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"/>
+                <TextBox x:Name="txtStartPoint" Style="{StaticResource Addtxb}"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <TextBlock Text="Точка назначения"  Style="{StaticResource Add}" Panel.ZIndex="1" Visibility="{Binding ElementName=txtEndPoint,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"/>
+                <TextBox x:Name="txtEndPoint" Style="{StaticResource Addtxb}"/>
+            </Grid>
+            <Grid Grid.Row="3">
+                <TextBlock Text="Расстояние (км)"  Style="{StaticResource Add}" Panel.ZIndex="1" Visibility="{Binding ElementName=txtDistance,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"/>
+                <TextBox x:Name="txtDistance" Style="{StaticResource Addtxb}"/>
+            </Grid>
+            <Grid Grid.Row="4">
+                <TextBlock Text="Примерное время (ч)"  Style="{StaticResource Add}" Panel.ZIndex="1" Visibility="{Binding ElementName=txtEstimatedTime,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"/>
+                <TextBox x:Name="txtEstimatedTime" Style="{StaticResource Addtxb}"/>
+            </Grid>
+            <StackPanel Orientation="Horizontal"  Grid.Row="5">
+                <Button Content="Сохранить" Style="{StaticResource ActionAdd}" Width="354" Margin="5" Click="Save_Click"/>
+                <Button Content="Отменить" Style="{StaticResource ActionAdd}" Click="Cancel_Click" Width="332" Margin="5"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,55 @@
+﻿<Page x:Class="LC.Pages.Entrance"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LogiCore.Pages"
+      mc:Ignorable="d" 
+d:DesignHeight="1000" d:DesignWidth="1800" MaxHeight="1080" MaxWidth="1920" MinHeight="450" MinWidth="800"
+      Title="Авторизация" Background="Transparent">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Style="{StaticResource Border}"  CornerRadius="20 20 0 0">
+            <TextBlock Style="{StaticResource Back}"  Text="назад"  MouseDown="TextBlock_MouseDown_1"/>
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid.Background>
+                <SolidColorBrush Color="WhiteSmoke"/>
+            </Grid.Background>
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="\Image\im1.jpg" Opacity="0.5"/>
+                </Grid.Background>
+            </Grid>
+
+            <Border Style="{StaticResource Enbor}">
+                <StackPanel>
+                    <Grid>
+                        <TextBlock Text="Email"  Style="{StaticResource Fields}" Panel.ZIndex="1" Visibility="{Binding ElementName=txbEmail,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="txbEmail" Style="{StaticResource Field}"/>
+                    </Grid>
+                    <Grid>
+                        <TextBlock Text="Пароль"  Style="{StaticResource Fields}" Panel.ZIndex="1" Visibility="{Binding ElementName=txbPassword,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txbPassword" Style="{StaticResource Field}"/>
+                        </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="307.704"/>
+                        </Grid.ColumnDefinitions>
+                       
+                    </Grid>
+                    <Button x:Name="btnVhod" Style="{StaticResource Vhod}" Grid.Column="0" Content="Войти"  Click="btnVhod_Click"/>
+                    <TextBlock x:Name="Reg1" Text="Зарегистрироваться" Style="{StaticResource Reg}"  Grid.Column="4" Grid.RowSpan="2"  Grid.Row="1" Grid.ColumnSpan="2"   MouseDown="TextBlock_MouseDown"  MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Border Grid.Row="3" Style="{StaticResource Border}"  CornerRadius="0 0 20 20"/>
+        <Grid>
+        </Grid>
+    </Grid>
+</Page>

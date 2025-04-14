@@ -1,0 +1,33 @@
+﻿<Page x:Class="LogiCore.Pages.DriverRoutes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LogiCore.Pages"
+      mc:Ignorable="d" 
+   d:DesignHeight="800" d:DesignWidth="1150" MaxHeight="1080" MaxWidth="1920" MinHeight="450" MinWidth="800"
+      Title="Маршрут Водителя">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+            <Button Content="Обновить" Click="RefreshRoutes_Click" Style="{StaticResource ManagerAction}" Margin="0,0,10,0" Width="150"/>
+        </StackPanel>
+        <DataGrid x:Name="RoutesGrid" Grid.Row="1" 
+                 AutoGenerateColumns="False"
+                 SelectionMode="Single"
+                 IsReadOnly="True" Style="{StaticResource dg}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№ маршрута" Binding="{Binding Route_id}" Width="Auto"/>
+                <DataGridTextColumn Header="Откуда" Binding="{Binding Start_point}" Width="*"/>
+                <DataGridTextColumn Header="Куда" Binding="{Binding End_point}" Width="*"/>
+                <DataGridTextColumn Header="Расстояние" Binding="{Binding Distance, StringFormat={}{0} км}" Width="*"/>
+                <DataGridTextColumn Header="Примерное время" Binding="{Binding Estimated_time}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

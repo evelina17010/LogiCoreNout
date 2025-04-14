@@ -1,0 +1,42 @@
+﻿<Page x:Class="LogiCore.Pages.CargoPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LogiCore.Pages"
+      mc:Ignorable="d" 
+d:DesignHeight="800" d:DesignWidth="1150" MaxHeight="1080" MaxWidth="1920" MinHeight="450" MinWidth="800"
+      Title="Грузы">
+    <ScrollViewer>
+        <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5">
+                <Button Content="Добавить" Click="AddCargo_Click" Style="{StaticResource Action}"/>
+                <Button Content="Редактировать" Click="EditCargo_Click" Style="{StaticResource Action}"/>
+                <Button Content="Удалить" Click="DeleteCargo_Click" Style="{StaticResource Action}"/>
+                <Button Content="Обновить"  Click="Refresh_Click" Style="{StaticResource Action}"/>
+                <Grid >
+                    <TextBlock Text="Поиск по ID"  Style="{StaticResource Add}" Panel.ZIndex="1" Visibility="{Binding ElementName=CargoSearchTb,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"/>
+                    <TextBox  Style="{StaticResource Addtxb}"  Name="CargoSearchTb" TextChanged="CargoSearchTb_TextChanged"/>
+                </Grid>
+            </StackPanel>
+            <DataGrid x:Name="CargoGrid" Grid.Row="1"  AutoGenerateColumns="False" SelectionChanged="CargoGrid_SelectionChanged"
+              IsReadOnly="True" SelectionMode="Single" Style="{StaticResource dg}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Cargo_id}" Width="Auto"/>
+                    <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="*"/>
+                    <DataGridTextColumn Header="Вес (кг)" Binding="{Binding Weight}" Width="*"/>
+                    <DataGridTextColumn Header="Объем (м³)" Binding="{Binding Volume}" Width="*"/>
+                    <DataGridTextColumn Header="Пункт отправки" Binding="{Binding Pickup_address}" Width="*"/>
+                    <DataGridTextColumn Header="Пункт прибытия" Binding="{Binding Delivery_address}" Width="*"/>
+                    <DataGridTextColumn Header="Дата создания" Binding="{Binding Date, StringFormat={}{0:dd.MM.yyyy}}" Width="Auto"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+    </ScrollViewer>
+</Page>

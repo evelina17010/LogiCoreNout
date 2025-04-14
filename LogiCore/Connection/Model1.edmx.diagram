@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1f2d88f70c5440579eeca139920b4788" Name="Diagram1">
+        <EntityTypeShape EntityType="LogModel.Cargo" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LogModel.Driver" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="LogModel.Order" Width="1.5" PointX="9.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LogModel.Payment" Width="1.5" PointX="12" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LogModel.Role" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LogModel.Route" Width="1.5" PointX="7.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LogModel.Tariff" Width="1.5" PointX="7.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LogModel.Truck" Width="1.5" PointX="7.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LogModel.User" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <AssociationConnector Association="LogModel.FK_Cargo_User" ManuallyRouted="false" />
+        <AssociationConnector Association="LogModel.FK_Order_Cargo" ManuallyRouted="false" />
+        <AssociationConnector Association="LogModel.FK_Driver_User" ManuallyRouted="false" />
+        <AssociationConnector Association="LogModel.FK_Truck_Driver1" ManuallyRouted="false" />
+        <AssociationConnector Association="LogModel.FK_Order_Route" ManuallyRouted="false" />
+        <AssociationConnector Association="LogModel.FK_Order_Tariff" ManuallyRouted="false" />
+        <AssociationConnector Association="LogModel.FK_Order_Truck1" ManuallyRouted="false" />
+        <AssociationConnector Association="LogModel.FK_Order_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="LogModel.FK_Payment_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="LogModel.FK_User_Role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

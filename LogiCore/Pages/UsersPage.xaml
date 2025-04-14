@@ -1,0 +1,42 @@
+﻿<Page x:Class="LogiCore.Pages.UsersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LogiCore.Pages"
+      mc:Ignorable="d" 
+d:DesignHeight="800" d:DesignWidth="1150" MaxHeight="1080" MaxWidth="1920" MinHeight="450" MinWidth="800"
+      Title="Пользователи">
+    <ScrollViewer>
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5">
+            <Button Content="Добавить" Click="AddUser_Click" Style="{StaticResource Action}"/>
+            <Button Content="Редактировать" Click="EditUser_Click" Style="{StaticResource Action}"/>
+            <Button Content="Удалить" Click="DeleteUser_Click" Style="{StaticResource Action}"/>
+            <Button Content="Обновить"  Click="Refresh_Click" Style="{StaticResource Action}"/>
+            <Button Content="Заблокировать"  Click="BlockUser_Click" Style="{StaticResource Action}"/>
+            <Grid >
+                <TextBlock Text="Поиск пользователя по ID"  Style="{StaticResource Add}" Panel.ZIndex="1" Visibility="{Binding ElementName=UserSearchTb,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"/>
+                <TextBox  Style="{StaticResource Addtxb}"  Name="UserSearchTb" TextChanged="UserSearchTb_TextChanged"/>
+            </Grid>
+        </StackPanel>
+        <DataGrid x:Name="UsersGrid" Grid.Row="1"  AutoGenerateColumns="False" 
+                  IsReadOnly="True" SelectionMode="Single" Style="{StaticResource dg}" SelectionChanged="UsersGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding User_id}" Width="Auto"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding Full_name}" Width="*"/>
+                <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="*"/>
+                <DataGridTextColumn Header="Роль" Binding="{Binding Role.Name}"   Width="*"/>
+                <DataGridCheckBoxColumn Header="Заблокирован" Binding="{Binding Is_blocked}" Width="Auto"/>
+                <DataGridTextColumn Header="Дата регистрации" Binding="{Binding Created_at, StringFormat={}{0:dd.MM.yyyy}}" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+   </ScrollViewer>
+</Page>

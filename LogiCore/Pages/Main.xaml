@@ -1,0 +1,54 @@
+﻿<Page x:Class="LC.Pages.Main"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LogiCore.Pages"
+      mc:Ignorable="d" 
+   d:DesignHeight="1000" d:DesignWidth="1800" MaxHeight="1080" MaxWidth="1920" MinHeight="450" MinWidth="800"
+      Title="LogiCore" Background="MintCream">
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="50"/>
+            <Setter Property="FontFamily" Value="Segoe U"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Foreground" Value="SeaGreen"/>
+        </Style>
+    </Page.Resources>
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="\Image\mainfon.jpg"/>
+        </Grid.Background>
+        <TextBlock Text="LOGICORE"  Style="{x:Null}" Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="4" Grid.RowSpan="2" FontWeight="Bold" FontFamily="Segoe U" FontSize="100" TextAlignment="Center" Foreground="#5ead5a"/>
+        <TextBlock x:Name="Registration"  Text="Регистрация"  Grid.RowSpan="2" Grid.Column="6"   Grid.Row="1" Grid.ColumnSpan="4"  MouseDown="Reg_MouseDown" MouseEnter="Reg_MouseEnter" MouseLeave="Reg_MouseLeave"/>
+        <TextBlock x:Name="Entrance"  Text="Вход"   Grid.Column="4" Grid.RowSpan="2"  Grid.Row="1" Grid.ColumnSpan="3"   MouseDown="Entrance_MouseDown"  MouseEnter="Entrance_MouseEnter" MouseLeave="Entrance_MouseLeave" Margin="90,0,90,0"/>
+        <Image Source="\Image\im2.png" Grid.Column="5" Grid.Row="3" Grid.ColumnSpan="4" Grid.RowSpan="4" />
+    </Grid>
+</Page>

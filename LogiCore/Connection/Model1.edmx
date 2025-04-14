@@ -1,0 +1,722 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище LogModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="Cargo_id" />
+          </Key>
+          <Property Name="Cargo_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client_id" Type="int" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="Weight" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Volume" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Pickup_address" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Delivery_address" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="Driver_id" />
+          </Key>
+          <Property Name="Driver_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_id" Type="int" Nullable="false" />
+          <Property Name="License_number" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Status_driver" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Order_id" />
+          </Key>
+          <Property Name="Order_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Manager_id" Type="int" Nullable="false" />
+          <Property Name="Cargo_id" Type="int" Nullable="false" />
+          <Property Name="Tariff_id" Type="int" Nullable="false" />
+          <Property Name="Truck_id" Type="int" Nullable="false" />
+          <Property Name="Route_id" Type="int" Nullable="false" />
+          <Property Name="Status_order" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Order_date" Type="datetime" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Scheduled_pickup" Type="datetime" />
+          <Property Name="Scheduled_delivery" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Payment_id" />
+          </Key>
+          <Property Name="Payment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Order_id" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Status_payment" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Transaction_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Role_id" />
+          </Key>
+          <Property Name="Role_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="Route_id" />
+          </Key>
+          <Property Name="Route_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Start_point" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="End_point" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Distance" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Estimated_time" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tariff">
+          <Key>
+            <PropertyRef Name="Tariff_id" />
+          </Key>
+          <Property Name="Tariff_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="Cost_km" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Cost_kg" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Cost_m3" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="AdditionalCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Created_time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Truck">
+          <Key>
+            <PropertyRef Name="Truck_id" />
+          </Key>
+          <Property Name="Truck_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Driver_id" Type="int" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Capacity" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Dimensions" Type="nvarchar" MaxLength="50" />
+          <Property Name="Location" Type="nvarchar" MaxLength="255" />
+          <Property Name="Status_truck" Type="bit" />
+          <Property Name="Registration_number" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_id" />
+          </Key>
+          <Property Name="User_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Role_id" Type="int" Nullable="false" />
+          <Property Name="Full_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Is_blocked" Type="bit" />
+          <Property Name="Created_at" Type="date" />
+        </EntityType>
+        <Association Name="FK_Cargo_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Cargo" Type="Self.Cargo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Cargo">
+              <PropertyRef Name="Client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Driver_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Driver" Type="Self.Driver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Driver">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Cargo">
+          <End Role="Cargo" Type="Self.Cargo" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="Cargo_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Cargo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Route">
+          <End Role="Route" Type="Self.Route" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="Route_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Route_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Tariff">
+          <End Role="Tariff" Type="Self.Tariff" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tariff">
+              <PropertyRef Name="Tariff_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Tariff_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Truck1">
+          <End Role="Truck" Type="Self.Truck" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Truck">
+              <PropertyRef Name="Truck_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Truck_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Manager_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Order_id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="Order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Truck_Driver1">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="0..1" />
+          <End Role="Truck" Type="Self.Truck" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="Driver_id" />
+            </Principal>
+            <Dependent Role="Truck">
+              <PropertyRef Name="Driver_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Role_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище LogModelContainer">
+          <EntitySet Name="Cargo" EntityType="Self.Cargo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Driver" EntityType="Self.Driver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Route" EntityType="Self.Route" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tariff" EntityType="Self.Tariff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Truck" EntityType="Self.Truck" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cargo_User" Association="Self.FK_Cargo_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Cargo" EntitySet="Cargo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Driver_User" Association="Self.FK_Driver_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Driver" EntitySet="Driver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Cargo" Association="Self.FK_Order_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Route" Association="Self.FK_Order_Route">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Tariff" Association="Self.FK_Order_Tariff">
+            <End Role="Tariff" EntitySet="Tariff" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Truck1" Association="Self.FK_Order_Truck1">
+            <End Role="Truck" EntitySet="Truck" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User1" Association="Self.FK_Order_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Order" Association="Self.FK_Payment_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Truck_Driver1" Association="Self.FK_Truck_Driver1">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="Truck" EntitySet="Truck" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="Cargo_id" />
+          </Key>
+          <Property Name="Cargo_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_id" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Weight" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Volume" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Pickup_address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Delivery_address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Cargo_User" FromRole="Cargo" ToRole="User" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Cargo" FromRole="Cargo" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="Driver_id" />
+          </Key>
+          <Property Name="Driver_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_id" Type="Int32" Nullable="false" />
+          <Property Name="License_number" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status_driver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Driver_User" FromRole="Driver" ToRole="User" />
+          <NavigationProperty Name="Truck" Relationship="Self.FK_Truck_Driver1" FromRole="Driver" ToRole="Truck" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Order_id" />
+          </Key>
+          <Property Name="Order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Manager_id" Type="Int32" Nullable="false" />
+          <Property Name="Cargo_id" Type="Int32" Nullable="false" />
+          <Property Name="Tariff_id" Type="Int32" Nullable="false" />
+          <Property Name="Truck_id" Type="Int32" Nullable="false" />
+          <Property Name="Route_id" Type="Int32" Nullable="false" />
+          <Property Name="Status_order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_date" Type="DateTime" Precision="3" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Scheduled_pickup" Type="DateTime" Precision="3" />
+          <Property Name="Scheduled_delivery" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Cargo" Relationship="Self.FK_Order_Cargo" FromRole="Order" ToRole="Cargo" />
+          <NavigationProperty Name="Route" Relationship="Self.FK_Order_Route" FromRole="Order" ToRole="Route" />
+          <NavigationProperty Name="Tariff" Relationship="Self.FK_Order_Tariff" FromRole="Order" ToRole="Tariff" />
+          <NavigationProperty Name="Truck" Relationship="Self.FK_Order_Truck1" FromRole="Order" ToRole="Truck" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Order_User1" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="Payment" Relationship="Self.FK_Payment_Order" FromRole="Order" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Payment_id" />
+          </Key>
+          <Property Name="Payment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Order_id" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Status_payment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Transaction_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Payment_Order" FromRole="Payment" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Role_id" />
+          </Key>
+          <Property Name="Role_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="Route_id" />
+          </Key>
+          <Property Name="Route_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Start_point" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="End_point" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Distance" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Estimated_time" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Route" FromRole="Route" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Tariff">
+          <Key>
+            <PropertyRef Name="Tariff_id" />
+          </Key>
+          <Property Name="Tariff_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cost_km" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Cost_kg" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Cost_m3" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="AdditionalCost" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Created_time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Tariff" FromRole="Tariff" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Truck">
+          <Key>
+            <PropertyRef Name="Truck_id" />
+          </Key>
+          <Property Name="Truck_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Driver_id" Type="Int32" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Capacity" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Dimensions" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Status_truck" Type="Boolean" />
+          <Property Name="Registration_number" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK_Truck_Driver1" FromRole="Truck" ToRole="Driver" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Truck1" FromRole="Truck" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_id" />
+          </Key>
+          <Property Name="User_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Role_id" Type="Int32" Nullable="false" />
+          <Property Name="Full_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Is_blocked" Type="Boolean" />
+          <Property Name="Created_at" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Cargo" Relationship="Self.FK_Cargo_User" FromRole="User" ToRole="Cargo" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK_Driver_User" FromRole="User" ToRole="Driver" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Order_User1" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_Cargo_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Cargo" Type="Self.Cargo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Cargo">
+              <PropertyRef Name="Client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Cargo">
+          <End Role="Cargo" Type="Self.Cargo" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="Cargo_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Cargo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Driver_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Driver" Type="Self.Driver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Driver">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Truck_Driver1">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="0..1" />
+          <End Role="Truck" Type="Self.Truck" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="Driver_id" />
+            </Principal>
+            <Dependent Role="Truck">
+              <PropertyRef Name="Driver_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Route">
+          <End Role="Route" Type="Self.Route" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="Route_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Route_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Tariff">
+          <End Role="Tariff" Type="Self.Tariff" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tariff">
+              <PropertyRef Name="Tariff_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Tariff_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Truck1">
+          <End Role="Truck" Type="Self.Truck" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Truck">
+              <PropertyRef Name="Truck_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Truck_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Manager_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Order_id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="Order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Role_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LogEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cargo" EntityType="Self.Cargo" />
+          <EntitySet Name="Driver" EntityType="Self.Driver" />
+          <EntitySet Name="Order" EntityType="Self.Order" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="Route" EntityType="Self.Route" />
+          <EntitySet Name="Tariff" EntityType="Self.Tariff" />
+          <EntitySet Name="Truck" EntityType="Self.Truck" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_Cargo_User" Association="Self.FK_Cargo_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Cargo" EntitySet="Cargo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Cargo" Association="Self.FK_Order_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Driver_User" Association="Self.FK_Driver_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Driver" EntitySet="Driver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Truck_Driver1" Association="Self.FK_Truck_Driver1">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="Truck" EntitySet="Truck" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Route" Association="Self.FK_Order_Route">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Tariff" Association="Self.FK_Order_Tariff">
+            <End Role="Tariff" EntitySet="Tariff" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Truck1" Association="Self.FK_Order_Truck1">
+            <End Role="Truck" EntitySet="Truck" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User1" Association="Self.FK_Order_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Order" Association="Self.FK_Payment_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище LogModelContainer" CdmEntityContainer="LogEntities1">
+          <EntitySetMapping Name="Cargo">
+            <EntityTypeMapping TypeName="LogModel.Cargo">
+              <MappingFragment StoreEntitySet="Cargo">
+                <ScalarProperty Name="Cargo_id" ColumnName="Cargo_id" />
+                <ScalarProperty Name="Client_id" ColumnName="Client_id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="Pickup_address" ColumnName="Pickup_address" />
+                <ScalarProperty Name="Delivery_address" ColumnName="Delivery_address" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Driver">
+            <EntityTypeMapping TypeName="LogModel.Driver">
+              <MappingFragment StoreEntitySet="Driver">
+                <ScalarProperty Name="Driver_id" ColumnName="Driver_id" />
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="License_number" ColumnName="License_number" />
+                <ScalarProperty Name="Status_driver" ColumnName="Status_driver" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="LogModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Order_id" ColumnName="Order_id" />
+                <ScalarProperty Name="Manager_id" ColumnName="Manager_id" />
+                <ScalarProperty Name="Cargo_id" ColumnName="Cargo_id" />
+                <ScalarProperty Name="Tariff_id" ColumnName="Tariff_id" />
+                <ScalarProperty Name="Truck_id" ColumnName="Truck_id" />
+                <ScalarProperty Name="Route_id" ColumnName="Route_id" />
+                <ScalarProperty Name="Status_order" ColumnName="Status_order" />
+                <ScalarProperty Name="Order_date" ColumnName="Order_date" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Scheduled_pickup" ColumnName="Scheduled_pickup" />
+                <ScalarProperty Name="Scheduled_delivery" ColumnName="Scheduled_delivery" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payment">
+            <EntityTypeMapping TypeName="LogModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="Payment_id" ColumnName="Payment_id" />
+                <ScalarProperty Name="Order_id" ColumnName="Order_id" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Status_payment" ColumnName="Status_payment" />
+                <ScalarProperty Name="Transaction_date" ColumnName="Transaction_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="LogModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Role_id" ColumnName="Role_id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Route">
+            <EntityTypeMapping TypeName="LogModel.Route">
+              <MappingFragment StoreEntitySet="Route">
+                <ScalarProperty Name="Route_id" ColumnName="Route_id" />
+                <ScalarProperty Name="Start_point" ColumnName="Start_point" />
+                <ScalarProperty Name="End_point" ColumnName="End_point" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="Estimated_time" ColumnName="Estimated_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tariff">
+            <EntityTypeMapping TypeName="LogModel.Tariff">
+              <MappingFragment StoreEntitySet="Tariff">
+                <ScalarProperty Name="Tariff_id" ColumnName="Tariff_id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Cost_km" ColumnName="Cost_km" />
+                <ScalarProperty Name="Cost_kg" ColumnName="Cost_kg" />
+                <ScalarProperty Name="Cost_m3" ColumnName="Cost_m3" />
+                <ScalarProperty Name="AdditionalCost" ColumnName="AdditionalCost" />
+                <ScalarProperty Name="Created_time" ColumnName="Created_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Truck">
+            <EntityTypeMapping TypeName="LogModel.Truck">
+              <MappingFragment StoreEntitySet="Truck">
+                <ScalarProperty Name="Truck_id" ColumnName="Truck_id" />
+                <ScalarProperty Name="Driver_id" ColumnName="Driver_id" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="Dimensions" ColumnName="Dimensions" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Status_truck" ColumnName="Status_truck" />
+                <ScalarProperty Name="Registration_number" ColumnName="Registration_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="LogModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role_id" ColumnName="Role_id" />
+                <ScalarProperty Name="Full_name" ColumnName="Full_name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Is_blocked" ColumnName="Is_blocked" />
+                <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

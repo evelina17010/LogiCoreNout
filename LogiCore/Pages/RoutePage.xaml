@@ -1,0 +1,40 @@
+﻿<Page x:Class="LogiCore.Pages.RoutePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LogiCore.Pages"
+      mc:Ignorable="d" 
+d:DesignHeight="800" d:DesignWidth="1150" MaxHeight="1080" MaxWidth="1920" MinHeight="450" MinWidth="800"
+      Title="Маршруты">
+    <ScrollViewer>
+        <Grid>
+        <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5">
+                    <Button Content="Добавить" Click="AddRoure_Click" Style="{StaticResource Action}"/>
+                <Button Content="Редактировать" Click="EditRoure_Click" Style="{StaticResource Action}"/>
+                <Button Content="Удалить" Click="DeleteRoure_Click" Style="{StaticResource Action}"/>
+                    <Button Content="Обновить"  Click="Refresh_Click" Style="{StaticResource Action}"/>
+                <Grid >
+                    <TextBlock Text="Поиск по ID"  Style="{StaticResource Add}" Panel.ZIndex="1" Visibility="{Binding ElementName=RoureSearchTb,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"/>
+                    <TextBox  Style="{StaticResource Addtxb}"  Name="RoureSearchTb" TextChanged="RoureSearchTb_TextChanged"/>
+                </Grid>
+            </StackPanel>
+            <DataGrid x:Name="RouteGrid" Grid.Row="1"  AutoGenerateColumns="False" SelectionChanged="RoureGrid_SelectionChanged"
+            IsReadOnly="True" SelectionMode="Single" Style="{StaticResource dg}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Route_id}" Width="Auto"/>
+                    <DataGridTextColumn Header="Откуда" Binding="{Binding Start_point}" Width="*"/>
+                    <DataGridTextColumn Header="Куда" Binding="{Binding End_point}" Width="*"/>
+                    <DataGridTextColumn Header="Расстояние (км)" Binding="{Binding Distance, StringFormat={}{0:N2}}" Width="*"/>
+                    <DataGridTextColumn Header="Время (ч)" Binding="{Binding Estimated_time, StringFormat={}{0:N2}}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Page>
